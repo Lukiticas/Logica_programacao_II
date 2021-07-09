@@ -1,0 +1,29 @@
+<canvas width="600" height="500">
+
+</canvas>
+
+<script>
+	var quadro = document.querySelector("canvas")
+	var pincel = quadro.getContext('2d')
+
+	function FazTriangulo(cor, x, y, xd, yd){
+		pincel.fillStyle = cor
+		pincel.fillRect(x, y, xd, yd)
+	}
+
+	pincel.fillStyle = 'darkgreen'
+	pincel.fillRect(0, 0, 600, 440)
+
+	FazTriangulo("black", 70, 70, 160, 140)
+	FazTriangulo("black", 350, 70, 160, 140)
+
+	FazTriangulo("black", 230, 210, 120, 150)
+	FazTriangulo("black", 155, 260, 75, 170)
+	FazTriangulo("black", 350, 260, 75, 170)
+
+
+
+
+
+
+</script>

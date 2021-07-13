@@ -1,0 +1,40 @@
+<div id='divQuadro' style ='position: absolute;margin-left: 150px;margin-top: 50px;'>
+    <canvas id=canvas width="600" height="400" style="border:1px solid #000000"></canvas>
+</div>
+
+<script>
+
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+
+    function desenhaCirculo(x, y, raio, cor) {
+
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+    }
+
+    var rx = 20
+    var lock = 0
+
+    function pulsar(){
+
+        pincel.clearRect(0, 0, canvas.width, canvas.height)
+        desenhaCirculo(300, 200, rx, 'blue')
+
+        if(rx <= 30 && lock == 0){
+            rx += 1
+            if(rx == 30){lock = 1}
+        }
+
+        if (rx >= 20 && lock == 1){
+            rx -= 1
+            if(rx == 20){lock = 0} 
+        }
+    }
+
+    setInterval(pulsar, 20)
+
+
+</script>

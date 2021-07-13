@@ -1,0 +1,45 @@
+<canvas width="600" height="400" style="border:1px solid #000000" ></canvas>
+<br>
+Escolha uma cor <input id='cor' type='color'>
+
+<script>
+	var tela = document.querySelector('canvas');
+	var pincel = tela.getContext('2d')
+	var cor = document.getElementById('cor')
+
+	var raio = 10
+	var desenha = false
+
+	tela.onmousedown = habilita
+	tela.onmouseup = desabilita
+
+	tela.onmousemove = function(event){
+
+		var x = event.pageX - tela.offsetLeft;
+		var y = event.pageY - tela.offsetTop;
+		
+		if(event.altKey && raio - 5 >= 10){
+			raio = raio - 5
+		}
+		else if(event.shiftKey && raio + 10 <= 40){
+			raio = raio + 10
+		}
+
+		if(desenha){
+			pincel.beginPath();
+			pincel.moveTo(x, y)
+			pincel.arc(x, y, raio, 0, 2 * Math.PI)
+			pincel.fillStyle = cor.value
+			pincel.fill()
+		}
+	} 
+
+	function habilita(){
+		return desenha = true
+	}
+
+	function desabilita(){
+		return desenha = false
+	}
+
+</script>

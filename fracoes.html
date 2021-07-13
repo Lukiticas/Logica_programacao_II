@@ -1,0 +1,88 @@
+<canvas id=canvinhas width="1920" height="350" style = "border:5px solid #000000">
+</canvas>
+
+<br>
+
+<input id='resposta' style="height:50px;width:350px" placeholder="COLOQUE SUA RESPOSTA AQUI">
+<button id='enviar' style="height:60px;width:100px">MANDAR</button>
+
+<p id="textoFinal" style="visibility:hidden"></p>
+
+<script>
+
+	var tela = document.querySelector('canvas')
+	var pincel = tela.getContext('2d')
+
+
+//função dos quadrados
+	function desenhaQuadrados(x, y, tamanhoDaColuna, tamanhoDoQuadrado, cor){
+
+		//função se baseia no retorno do usuario/professor :)
+		function desenhaQuadrado(x, y){
+
+			pincel.fillStyle = cor
+			pincel.fillRect(x, y, tamanhoDoQuadrado, tamanhoDoQuadrado)
+			pincel.fillStroke = 'black'
+			pincel.strokeRect(x, y, tamanhoDoQuadrado, tamanhoDoQuadrado)
+
+		}
+		//Essa função "monta" a quantidade de quadradinhos que o usuario pediu, dividas em carreiras Denomidor/Numerador
+		for(var z = 0; z < (tamanhoDaColuna*tamanhoDoQuadrado); z = z + tamanhoDoQuadrado){
+			desenhaQuadrado(z, y)
+		}
+	}
+
+
+	//função do textinho
+	function InsereTexto(texto, x, y){
+
+		pincel.font ='50px IMPACT';
+		pincel.fillStyle = 'black';
+		pincel.fillText(texto, x, y)
+	}
+
+	//perguntas ao usuario/professor, queria que ficasse escondido dos "alunos"
+	var tamQuad = 0;
+    while(tamQuad < 60 || tamQuad > 100) {
+        tamQuad = (parseInt(prompt('Qual é o tamanho do seus quadrados? *em px, min60-max100')))
+    }
+	var qntdd = (parseInt(prompt('Qual o denominador?')))
+	var qntdd1 = (parseInt(prompt('Qual o numerador?')))
+
+	//retorno da função, são duas carreiras, uma para o denominador e outra para o numerador, uma fica exatamente na frente da outra, como se fosse uma função :)
+	desenhaQuadrados(0, 100, qntdd, tamQuad, 'blue')
+
+	//essa soma o y com 100 para dar espaço para o texto que fica em cima
+	desenhaQuadrados(0, (100 + tamQuad), qntdd1, tamQuad, 'white')
+	InsereTexto('QUAL A FRAÇÃO?', 0, 50)
+
+
+	//fração teste, estou com problemas help :()
+	var resposta = document.getElementById('resposta')
+	var enviar = document.getElementById('enviar')
+	var respostaVerdadeira = (qntdd + "/" + qntdd1)
+
+	function compara(){
+
+		if(resposta.value == respostaVerdadeira){
+
+			document.getElementById('textoFinal').style.visibility= ("visible");
+			document.getElementById('textoFinal').innerText = ("ACEEERTOOOU");
+
+		} else { 
+			document.getElementById('textoFinal').innerText = ("Infelizmente vc ERROU! Verifique se está a resposta está formatada corretamente");
+			document.getElementById('textoFinal').style.visibility = ("visible")
+		}
+	}
+
+	enviar.onclick = compara
+
+	document.addEventListener("keypress", function(e){
+	if(e.key === "Enter"){
+		return enviar.click()
+	}
+})
+
+	console.log(respostaVerdadeira)
+
+</script>

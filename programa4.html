@@ -1,0 +1,45 @@
+<div id='divQuadro' style ='position: absolute;margin-left: 150px;margin-top: 50px;'>
+	<canvas id=canvas width="600" height="400" style="border:1px solid #000000"></canvas>
+</div>
+
+<script>
+	var canvas = document.getElementById('canvas')
+	var pincel = canvas.getContext('2d')
+
+	function desenhaCirculo(posx, posy, raio){
+
+		pincel.fillStyle = 'blue'
+		pincel.beginPath()
+		pincel.arc(posx, posy, raio, 0, 2*Math.PI)
+		pincel.fill()
+
+		}
+
+	var posix = 20
+
+	var begin = 20
+	var end = 580
+
+	var lock = 0 //interruptor
+	
+ 
+	function animacao(){
+
+		pincel.clearRect(0, 0, canvas.width, canvas.height)
+		desenhaCirculo(posix, 20, 10)
+
+		if(posix <= end && lock == 0){
+			posix += 1
+			if(posix == end){lock = 1} //chave 'regride'
+		}
+
+		if (posix >= begin && lock == 1){
+			posix -= 1
+			if(posix == begin){lock = 0} //chave 'avança'
+		}
+	}
+	
+
+	setInterval(animacao, 10);
+	
+</script>
